@@ -8,98 +8,45 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/feather-icons"></script>
+        <script src="sillyclient.js"></script>
+        <script type="text/javascript" src="main.js"></script>
         <title>ECV - P1</title>
     </head>
 
     <body>
-        <div class="item usersList">
-            <div class="menuPrincipal">
-                <h1 class="titleList">Mensajes</h1>
-                <i class='icon2' data-feather="plus"></i>
-                <i class='icon2' data-feather="menu" ></i>
+        <div class="login" id="loginBox">
+            <div class="titleWeb">
+                <h1>Chat Online - ECV P1</h1>
             </div>
-
-            <div class="searchBar">
-                <i  data-feather="search"></i>
-                Busca aquí...
-            </div>
-            <div class="menuSecundario">
-                <i class='icon2' data-feather="clock"></i>
-                <i class='icon2' data-feather="users"></i>
-                <i class='icon2' data-feather="star"></i>
-                <i class='icon2' data-feather="archive"></i>
-            </div>
-
-            <div class=userPreview>
-                <img src="https://images.generated.photos/RPbpQEnp0DKfTPemTzfKeE_EbDg8YjybRJ0K1PpX1RE/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy8wMDM0/NDAwLmpwZw.jpg" alt="">
-                <p class="userNameList">Carlos García</p>
-                <div class="newMsg"> 1 </div>
-            </div>
-            <div class='userPreview selected'>
-                <img src="https://images.generated.photos/VzkvNV_CYBXbN0MLer6uH8VOuRU3Nf4Bw1M8US7ARrs/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy8wMDc2/MDEyLmpwZw.jpg" alt="">
-                <p class="userNameList">Laura Trabajo</p>
-                <div class="newMsg">  </div>
-            </div>
-            <div class='userPreview'>
-                <img src="https://images.generated.photos/Z2AYo9xiQcPfIJLWgdUsdznEXvlplxDjhXcaW5jdJ-k/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy8wMjU2/ODU4LmpwZw.jpg" alt="">
-                <p class="userNameList">Oscar Clase</p>
-                <div class="newMsg"> 5 </div>
+            <h5 class="titleLogin">Introduce un nombre de usuario:</h5>
+            <div class="inputbtnflex">
+                <input  class='loginInput' name='userid' type="text" id='userid' 
+                placeholder="Enter username" minlength="5" maxlenght='10' onblur="getUserId();setNameTitle();" required/>
+                <button type="button" class="loginBtn"  id='loginButton' onclick="enterChat()"> Entrar!</button>
             </div>
         </div>
 
-        <div class="item chatbox">
-            <div class="userName">
-                <h1 id="userChatName">Laura Trabajo</h1>
-                <i class='icon' data-feather="phone" stroke= 'white'></i>
-                <i class='icon' data-feather="video" stroke= 'white'></i>
-            </div>
-            <div class="chat">
+        <div class='allApp' id="allApp">
+            <div class=chatBox>
+                <div class="userName">
+                    <h1 id="nameTitle">Chat Online - ECV P1</h1>
+                </div>
+                <div class="borderChat">
+                    <div class="chat">
+                        <div class="chattext send"> Hola!</div>
+                        <div class="chattext receive"> Hola!</div>
+                        <div class="chattext send"> Hola!</div>
+                    </div>
+                    <div class="inputMsg">
+                        <input  class='inputText' name='msg' type="text" id='msg' 
+                        placeholder="Type your message here..."/>
                 
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-                <div class="chattext send"> Hola!</div>
-                <div class="chattext receive"> Hola!</div>
-
-                <div class="inputMsg">
-                    <div class="inputText">Type your message here...</div>
-                    <i data-feather="smile" stroke= '#6d6d6e' ></i>
-                    <i data-feather="paperclip" stroke= '#6d6d6e'></i>
-                    <i data-feather="send"></i>
+                        <i data-feather="smile" stroke= '#6d6d6e' ></i>
+                        <i data-feather="send"></i>
+                    </div>
                 </div>
             </div>
-            
         </div>
-
-        <div class="item infoUser"></div>
-        
         
     </body>
 </html>
@@ -108,6 +55,8 @@
     var mainColor = '#083fa5'
     var secondColor = '#6d6d6e'
     feather.replace({class: 'foo bar', 'stroke': mainColor, 'width': 17})
+    //provisional
+    //enterChat();
 </script>
 <style>
     @import 'style.css';

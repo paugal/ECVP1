@@ -8,129 +8,103 @@ html{
     background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(var(--main-color) 2px, transparent 2px) 0 -1px, linear-gradient(90deg, var(--main-color) 2px, #e5e5f7 2px) -1px 0;
     background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
 }
-
 body{
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-auto-rows: 100px;
-    min-width: 1200px;
-    grid-template-areas:
-    "a a b b b b c c"
-    "a a b b b b c c"
-    "a a b b b b c c"
-    "a a b b b b c c";
-    align-items: start;
-    font-family: 'Roboto', sans-serif;
-    max-width: 1200px;
+    font-family: 'Raleway', sans-serif;
+}
+.login{
+    background-color: var(--main-color);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.3);
+    padding: 30px;
+    width: 350px;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 20vh;
     
 }
-.item {
-  background: #f1e9f7;
-  font-size: 2rem;
-  text-align: center;
-  min-height: 500px;
-  box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+.titleWeb{
+    display: flex;
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+    color: black;
+    margin-bottom: 20px;
+    justify-content: center;
+    background-color: #f8f9fb;
+    border-radius: 15px;
+    font-size: 15px;
+    
 }
-
-.usersList{
-    grid-area: a;
-    border-radius: 25px 0px 0px 25px;
-    background: var(--main-color);
-    z-index: 2;
+.titleLogin{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.inputbtnflex{
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.loginInput{
+    background-color: white;
+    color: var(--main-color);
+    border: transparent;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 5px 10px 5px 10px;
     box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
 }
-    .titleList{
-        color: white;
-        font-size: 30px;
-    }
-    .icon2{
-        background: white;
-        border-radius: 50px;
-        padding: 5px 9px 5px 9px;
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
-    }
-    .menuPrincipal{
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 20px;
-        margin-left: 30px;
-    }
-
-    .searchBar{
-        display: flex;
-        background-color: #3993f3;
-        align-items: center;
-        justify-content: flex-start;
-        margin: auto;
-        color: white;
-        font-size: 20px;
-        border-radius: 15px;
-        gap: 5px;
-        margin: 20px;
-        padding: 5px;
-        padding-left: 10px;
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
-    }
-    .searchBar:hover{
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.3);
-        transition: 120ms;
-    }
-
-    .menuSecundario{
-        display: flex;
-        gap: 30px;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .userPreview{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        margin: 15px;
-        border-radius: 25px;
-    }
-    .userPreview:hover{
-        background-color: #3993f3;
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
-    }
-    .userPreview.selected{
-        background-color: #3993f3;
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
-    }
-    .userPreview img{
-        width: 50px;
-        border-radius: 40px;
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
-    }
-    .userNameList{
-        font-size: 20px;
-        color: white;
-    }
-
-    .newMsg{
-        font-size: 15px;
-        color: var(--main-color);
-        background-color: white;
-        border-radius: 40px;
-        padding: 2px 7px 2px 7px;
-    }
-
-.chatbox{
-    grid-area: b;
-    background: #f8f9fb;
+.loginInput:focus{
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.4);
+    border: transparent;
+    outline: none;
 }
+.loginInput:invalid{
+    border: 1px solid red;
+}
+.loginBtn{
+    background-color: white;
+    margin: 5px;
+    color: var(--main-color);
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 5px;
+    border: transparent;
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+}
+.loginBtn:hover{
+    background-color: var(--color-test);
+    color: white;
+}
+.allApp{
+}
+.chatBox{
+    background: #f8f9fb;
+    padding: 50px;
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+    border-radius: 20px;
+    background-color: var(--main-color);
+    width: 50%;
+    margin: auto;
+    min-width: 500px;
+}
+    .borderChat{
+        background: #f8f9fb;
+        padding: 10px;
+        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+        border-radius: 20px;
+
+    }
     .userName{
+        padding-left: 5px;
         display: flex;
         text-align: left;
-        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
-        margin-bottom: 10px;
+        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+        margin-bottom: 20px;
         gap: 15px; 
         align-items: center;
         justify-content: flex-start;
+        background-color: #f8f9fb;
+        border-radius: 15px;
     }
 
         #userChatName{
@@ -180,25 +154,29 @@ body{
             margin: 5px 30px 5px 50%;
         }
     .inputMsg{
-        position:fixed;
-        z-index:100;
         display: flex;
         font-size: 15px;
         background-color:#ebebeb;
         border-radius: 35px;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3);
-        margin: 365px 0px 0px 140px;
         text-align: left;
-        width:fit-content;
         gap: 15px; 
         align-items: center;
         justify-content: space-evenly;
         padding: 10px;
+        width: 70%;
+        margin: auto;
 
     }
-
-.infoUser{
-    grid-area: c;
-    border-radius: 0px 25px 25px 0px;
-    background-color: white;
-}
+    .inputText{
+        width: 280px;
+        border: none;
+        background: none;
+        color: black;
+    }
+    .inputText:focus{
+        background: none;
+        color: black;
+        border: transparent;
+        outline: none;
+    }
