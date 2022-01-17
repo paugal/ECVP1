@@ -25,6 +25,13 @@ server.on_connect = function( server ){
     
 };
 
+function onMessageReceived( author_id, str_msg )
+{
+  displayMsg(author_id, str_msg);
+}
+
+server.on_message = onMessageReceived;
+
 function enterChat(){
 	const validation = document.getElementById("userid");
 	if (validation.checkValidity()) {
@@ -50,6 +57,7 @@ function pushMsg(){
 	msgs.push(['text', msgtext,userName]);
 	document.getElementById("inputMsg").value = '';
 	displayMsg(msgtext, userName);
+	server.sendMessage(msgtext);
 }
 
 function displayMsg(msgtext, userNameMsg){

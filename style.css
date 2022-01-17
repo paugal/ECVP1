@@ -76,6 +76,7 @@ body{
     color: white;
 }
 .allApp{
+    display: none;
 }
 .chatBox{
     background: #f8f9fb;
