@@ -27,7 +27,7 @@ server.on_connect = function( server ){
 
 function onMessageReceived( author_id, str_msg )
 {
-  displayMsg(author_id, str_msg);
+  displayMsg(str_msg, author_id);
 }
 
 server.on_message = onMessageReceived;
