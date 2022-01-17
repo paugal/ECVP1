@@ -32,17 +32,17 @@
                     <h1 id="nameTitle">Chat Online - ECV P1</h1>
                 </div>
                 <div class="borderChat">
-                    <div class="chat">
+                    <div class="chat" id="chat">
                         <div class="chattext send"> Hola!</div>
                         <div class="chattext receive"> Hola!</div>
                         <div class="chattext send"> Hola!</div>
                     </div>
                     <div class="inputMsg">
-                        <input  class='inputText' name='msg' type="text" id='msg' 
+                        <input  class='inputText' name='msg' type="text" id='inputMsg' 
                         placeholder="Type your message here..."/>
                 
                         <i data-feather="smile" stroke= '#6d6d6e' ></i>
-                        <i data-feather="send"></i>
+                        <i data-feather="send" onclick="pushMsg()"></i>
                     </div>
                 </div>
             </div>
