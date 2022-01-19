@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/x-icon" href="https://i.ibb.co/Z2KKGkz/iconChat.png" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,34 +16,44 @@
 
     <body>
         <div class="login" id="loginBox">
+            
             <div class="titleWeb">
                 <h1>Chat Online - ECV P1</h1>
             </div>
+            
             <h5 class="titleLogin">Introduce un nombre de usuario:</h5>
-            <div class="inputbtnflex">
-                <input  class='loginInput' name='userid' type="text" id='userid' 
-                placeholder="Enter username" minlength="5" maxlenght='10' onblur="getUserId();setNameTitle();" required/>
-                <button type="button" class="loginBtn"  id='loginButton' onclick="enterChat()"> Entrar!</button>
+            <input  class='loginInput' name='userid' type="text" id='useridInput' 
+            placeholder="Enter username" minlength="1" maxlenght='10' onkeypress="ClientOnTyping('useridInput', 'loginButton')" onblur="getUserName();" required/>
+            
+            <h5 class="titleLogin">Elecciona la sala deseada:</h5>
+            <div class="chatRooms">
+                <input type="radio" name="roomselector" id="roomGeneral" value="Principal"/>
+                <label for="roomGeneral">Principal</label>
+                <input type="radio" name="roomselector" id="roomUni" value="Universidad"/>
+                <label for="roomUni">Universidad</label>
+                <input type="radio" name="roomselector" id="roomCine" value="Cine"/>
+                <label for="roomCine">Cine</label>
+                <input type="radio" name="roomselector" id="roomMusica" value="Musica"/>
+                <label for="roomMusica">Musica</label>
             </div>
+            
+            <button type="button" class="loginBtn"  id='loginButton' onclick="enterChat()"> Entrar!</button>
         </div>
 
         <div class='allApp' id="allApp">
             <div class=chatBox>
-                <div class="userName">
+                <div class="nameTitle">
                     <h1 id="nameTitle">Chat Online - ECV P1</h1>
                 </div>
                 <div class="borderChat">
                     <div class="chat" id="chat">
-                        <div class="chattext send"> Hola!</div>
-                        <div class="chattext receive"> Hola!</div>
-                        <div class="chattext send"> Hola!</div>
                     </div>
                     <div class="inputMsg">
                         <input  class='inputText' name='msg' type="text" id='inputMsg' 
-                        placeholder="Type your message here..."/>
+                        placeholder="Type your message here..." onkeypress="ClientOnTyping('inputMsg', 'sendBtnChat')"/>
                 
                         <i data-feather="smile" stroke= '#6d6d6e' ></i>
-                        <i data-feather="send" onclick="pushMsg()"></i>
+                        <i id='sendBtnChat'data-feather="send"  onclick="pushMsg()"></i>
                     </div>
                 </div>
             </div>
@@ -55,8 +66,6 @@
     var mainColor = '#083fa5'
     var secondColor = '#6d6d6e'
     feather.replace({class: 'foo bar', 'stroke': mainColor, 'width': 17})
-    //provisional
-    //enterChat();
 </script>
 <style>
     @import 'style.css';
