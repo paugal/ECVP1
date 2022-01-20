@@ -27,7 +27,7 @@
             
             <h5 class="titleLogin">Elecciona la sala deseada:</h5>
             <div class="chatRooms">
-                <input type="radio" name="roomselector" id="roomGeneral" value="Principal"/>
+                <input type="radio" name="roomselector" id="roomGeneral" value="Principal" checked="checked"/>
                 <label for="roomGeneral">Principal</label>
                 <input type="radio" name="roomselector" id="roomUni" value="Universidad"/>
                 <label for="roomUni">Universidad</label>
@@ -35,6 +35,49 @@
                 <label for="roomCine">Cine</label>
                 <input type="radio" name="roomselector" id="roomMusica" value="Musica"/>
                 <label for="roomMusica">Musica</label>
+            </div>
+
+            <h5 class="titleLogin">Elecciona un avatar:</h5>
+            <div class="avatarSelector">
+                <label class="avatars">
+                    <input type="radio" name="avatar" checked="checked" value="https://i.ibb.co/xj86Zwy/avatar1.png"/>
+                    <img src="https://i.ibb.co/xj86Zwy/avatar1.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/3CbHhMC/avatar2.png"/>
+                    <img src="https://i.ibb.co/3CbHhMC/avatar2.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/RYKWKRP/avatar3.png"/>
+                    <img src="https://i.ibb.co/RYKWKRP/avatar3.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/tbrfKBQ/avatar4.png"/>
+                    <img src="https://i.ibb.co/tbrfKBQ/avatar4.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/Wg7kBNZ/avatar5.png"/>
+                    <img src="https://i.ibb.co/Wg7kBNZ/avatar5.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/w40PTDN/avatar6.png"/>
+                    <img src="https://i.ibb.co/w40PTDN/avatar6.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/jVgxg3m/avatar7.png"/>
+                    <img src="https://i.ibb.co/jVgxg3m/avatar7.png" alt=""/>
+                </label>
+
+                <label class="avatars">
+                    <input type="radio" name="avatar" value="https://i.ibb.co/gPLHRmh/avatar8.png"/>
+                    <img src="https://i.ibb.co/gPLHRmh/avatar8.png" alt=""/>
+                </label>
             </div>
             
             <button type="button" class="loginBtn"  id='loginButton' onclick="enterChat()"> Entrar!</button>
@@ -44,6 +87,7 @@
             <div class=chatBox>
                 <div class="nameTitle">
                     <h1 id="nameTitle">Chat Online - ECV P1</h1>
+                    <div class='activeUsersContainer' id="activeUsers"></div>
                 </div>
                 <div class="borderChat">
                     <div class="chat" id="chat">

@@ -6,29 +6,27 @@ var room_name = "PauGGRoom/";
 var selectedRoom = "Principal";
 var userId = '';
 var userName = '';
-var users = [
-	{
-		userid: '0',
-		username: 'pauGalan'
-	}
-]
+var avatarImg = '';
+var usersOnline = {
+	type: 'activeUsers',
+	content:
+	[{
+		userid: '',
+		username: '',
+		avatar: ''
+	}]
+};
 var msgs =[
 	{
 		type: 'text',
-		content: 'Holaa',
-		username: 'paugal'
+		username: 'paugal',
+		content: 'Holaa'
 	}
 ];
 
 var msg = {
 	type: "history",
-	content: [
-		{
-			type: "text",
-			username: "foo",
-			content: "..."
-		}		
-	]
+	content: []
 };
 
 
@@ -36,21 +34,21 @@ var msg = {
 //INICIO DE CONECXION
 server = new SillyClient();
 
-
-
 server.on_ready = function( my_id )
 {
-	console.log(my_id);
 	userId = my_id;
+	usersOnline.content[0] = {userid: userId, username: userName, avatar: avatarImg}
 }
 
-server.on_connect = function( server ){
+server.on_connect = function( server )
+{
+	setNameTitle();
+	enterChatMsg();
 };
-function selectRoom(roomName){
 
-}
 
-function enterChat(){
+function enterChat()
+{
 	const validation = document.getElementById("useridInput");
 	if (validation.checkValidity()) {
 		var loginBox = document.getElementById("loginBox");
@@ -58,30 +56,27 @@ function enterChat(){
 
 		loginBox.style.display = 'none';
 		chatBox.style.display = 'inline';
-		try {
-			selectedRoom = document.querySelector('input[name="roomselector"]:checked').value;
-			server.connect( location_server , room_name + selectedRoom);
-		} catch (error) {
-			selectedRoom = 'Principal';
-			server.connect( location_server , room_name + selectedRoom);
-		}
-		setNameTitle();
 		
+		selectedRoom = document.querySelector('input[name="roomselector"]:checked').value;
+		avatarImg = document.querySelector('input[name="avatar"]:checked').value;
+		server.connect( location_server , room_name + selectedRoom);
 	}
 }
 
-function getUserName(){
+function getUserName()
+{	
 	userName =  document.getElementById("useridInput").value;
-	enterChatMsg()
 }
 
-function setNameTitle(){
+function setNameTitle()
+{
 	console.log(selectedRoom)
 	document.getElementById("nameTitle").innerHTML = selectedRoom;
 }
 
-function enterChatMsg(){
-	var enterMsg = {type: 'enter', username: userName,content: null}
+function enterChatMsg()
+{
+	var enterMsg = {type: 'enter', username: userName, content: userId}
 	var msg_str = JSON.stringify( enterMsg );
 	server.sendMessage(msg_str);
 }
@@ -95,30 +90,63 @@ function onMessageReceived( authorId, data )
 	if(msgData.type == 'text'){
 		receiveTextMsg(msgData);
 	}else if(msgData.type == 'enter'){
-		newUserChat(msgData);
+		newUserChat(msgData, authorId);
+	}else if(msgData.type == 'history'){
+		loadHistory(msgData);
+	}else if(msgData.type == 'activeUsers'){
+		loadActiveUsers(msgData);
 	}
 	
 }
 
 function receiveTextMsg(msgData){
 	displayMsg(msgData.username, msgData.content);
+	pushReceiveMsg(msgData.type, msgData.username, msgData.content )
 }
 
-function newUserChat(msgData){
+function newUserChat(msgData, authorId)
+{
+	//Creamos un mensaje diferente ara indicar que alguien se ha conectado
 	var div = document.createElement("div");
 	div.classList.add('chattext');
 	div.classList.add('enter');
 	div.textContent = "El usuario " + msgData.username + " acaba de conertarse.";
 	document.getElementById("chat").appendChild(div);
 
+	sendHistory(authorId);
+	sendUsersOnline(authorId);
+	displayActiveUsers();
+	//Añadimos el nuevo usuario a la lista de conectados
+	usersOnline.content.push({username: msgData.username, userid: msgData.content})
 }
 
+function pushReceiveMsg(msgType, msgUser, msgContent)
+{
+	msg.content.push({type:msgType, username: msgUser, content: msgContent});
+}
 
 //ENVIO DE MENSAJES
-function pushMsg(){
+function sendHistory(authorId)
+{
+	//Enviamos todos los mensajes anteriores
+	var msg_str = JSON.stringify(msg);
+	
+	//Reutilizamos la array de mensajes para enviar el id en el apartado de contenido
+	console.log('Nuevo usuaro: ' + authorId);
+	server.sendMessage(msg_str, [authorId]);
+}
+
+function sendUsersOnline(authorId){
+	var msg_str = JSON.stringify(usersOnline);
+	server.sendMessage(msg_str, [authorId]);
+}
+
+function pushMsg()
+{
 	var msgtext = document.getElementById("inputMsg").value;
 	var msgAux = {type:'text', username: userName, content: msgtext};
 	msgs.push(msgAux);
+	msg.content.push(msgAux);
 	document.getElementById("inputMsg").value = '';
 
 	//mostramos nuestro mensaje
@@ -129,7 +157,33 @@ function pushMsg(){
 	server.sendMessage(msg_str);
 }
 
-function displayMsg(userNameMsg, msgtext){
+function loadHistory(msgData)
+{
+	if(msg.content.length == 0){
+		console.log('History receved');
+		var chatHistory = msgData.content;
+		console.log(chatHistory)
+		for(let index of chatHistory){
+			displayMsg(index.username, index.content);
+		}
+	}
+	displayActiveUsers();
+}
+
+function loadActiveUsers(usersData)
+{
+	if(usersOnline.content.length <= 1){
+		var actives = usersData.content;
+		for(let index of actives){
+			usersOnline.content.push(index)
+		}
+	}
+}
+
+
+//DISPLAY
+function displayMsg(userNameMsg, msgtext)
+{
 	var div = document.createElement("div");
 	div.classList.add('chattext');
 	if( userNameMsg == userName){
@@ -142,11 +196,19 @@ function displayMsg(userNameMsg, msgtext){
 	document.getElementById("chat").appendChild(div);
 }
 
-
-
+function displayActiveUsers(){
+	for(let index of usersOnline.content){
+		var div = document.createElement("div");
+		div.classList.add('activeUsers');
+		div.textContent = index.username;
+		document.getElementById("activeUsers").appendChild(div);
+		var img = document.createElement('img'); 
+    	img.src = index.avatar;
+		div.appendChild(img);
+	}
+}
 
 //EXTRAS
-
 
 //FUNCIONES PARA PODER ENVIAR CON ENTER EN LAS CAJAS DE TEXTO
 function ClientOnTyping(inputElement, elementBtn){
