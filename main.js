@@ -56,7 +56,6 @@ function enterChat()
 
 		loginBox.style.display = 'none';
 		chatBox.style.display = 'inline';
-		
 		selectedRoom = document.querySelector('input[name="roomselector"]:checked').value;
 		avatarImg = document.querySelector('input[name="avatar"]:checked').value;
 		server.connect( location_server , room_name + selectedRoom);
@@ -76,9 +75,19 @@ function setNameTitle()
 
 function enterChatMsg()
 {
-	var enterMsg = {type: 'enter', username: userName, content: userId}
+	var enterMsg = {type: 'enter', userid: userId, username: userName, avatar: avatarImg}
 	var msg_str = JSON.stringify( enterMsg );
 	server.sendMessage(msg_str);
+}
+
+function leaveChat(){
+	var enterMsg = {type: 'leave', userid: userId, username: userName, avatar: avatarImg}
+	var msg_str = JSON.stringify( enterMsg );
+	server.sendMessage(msg_str);
+	var loginBox = document.getElementById("loginBox");
+	var chatBox = document.getElementById("allApp");
+	loginBox.style.display = 'block';
+	chatBox.style.display = 'none';
 }
 
 //RECEPCION DE MENSAJES
@@ -95,9 +104,13 @@ function onMessageReceived( authorId, data )
 		loadHistory(msgData);
 	}else if(msgData.type == 'activeUsers'){
 		loadActiveUsers(msgData);
+	}else if((msgData.type == 'leave')){
+		userOffline(msgData);
 	}
 	
 }
+
+
 
 function receiveTextMsg(msgData){
 	displayMsg(msgData.username, msgData.content);
@@ -115,9 +128,30 @@ function newUserChat(msgData, authorId)
 
 	sendHistory(authorId);
 	sendUsersOnline(authorId);
-	displayActiveUsers();
+	
 	//Añadimos el nuevo usuario a la lista de conectados
-	usersOnline.content.push({username: msgData.username, userid: msgData.content})
+	usersOnline.content.push({userid:authorId, username: msgData.username, avatar: msgData.avatar})
+	displayActiveUsers();
+}
+function userOffline(userData){
+	var div = document.createElement("div");
+	div.classList.add('chattext');
+	div.classList.add('leave');
+	div.textContent = "El usuario " + userData.username + " acaba de desconertarse.";
+	document.getElementById("chat").appendChild(div);
+	
+	//Eliminamos al usuario de la lista
+	var index = usersOnline.content.findIndex(i => i.userid === userData.userid)
+	if (index > -1) {
+		usersOnline.content.splice(index, 1);
+		removeOfflineUsersDisplay(userData.userid);
+	}
+
+	
+
+	//Añadimos el nuevo usuario a la lista de conectados
+	//usersOnline.content.push({userid:authorId, username: userData.username, avatar: userData.avatar})
+	//displayActiveUsers();
 }
 
 function pushReceiveMsg(msgType, msgUser, msgContent)
@@ -172,14 +206,14 @@ function loadHistory(msgData)
 
 function loadActiveUsers(usersData)
 {
-	if(usersOnline.content.length <= 1){
+	if(usersOnline.content.length == 1){
 		var actives = usersData.content;
 		for(let index of actives){
+			console.log(usersData)
 			usersOnline.content.push(index)
 		}
 	}
 }
-
 
 //DISPLAY
 function displayMsg(userNameMsg, msgtext)
@@ -199,13 +233,20 @@ function displayMsg(userNameMsg, msgtext)
 function displayActiveUsers(){
 	for(let index of usersOnline.content){
 		var div = document.createElement("div");
-		div.classList.add('activeUsers');
-		div.textContent = index.username;
-		document.getElementById("activeUsers").appendChild(div);
-		var img = document.createElement('img'); 
-    	img.src = index.avatar;
-		div.appendChild(img);
+		div.id = index.userid;
+		if(document.getElementById(index.username) == null){
+			div.classList.add('activeUsers');
+			div.textContent = index.username;
+			document.getElementById("activeUsers").appendChild(div);
+			var img = document.createElement('img'); 
+			img.src = index.avatar;
+			div.appendChild(img);
+		}
 	}
+}
+
+function removeOfflineUsersDisplay(offlineId){
+	var offlineUser = document.getElementById(offlineId);
 }
 
 //EXTRAS

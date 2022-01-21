@@ -134,6 +134,7 @@ body{
         color: black;
         
     }
+
 .allApp{
     display: none;
 }
@@ -154,6 +155,17 @@ body{
         border-radius: 20px;
 
     }
+    .logOutBtn{
+        background-color: var(--color-five);
+        color: black;
+        font-weight: bold;
+        border-radius: 15px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: transparent;
+        box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
     .nameTitle{
         padding-left: 15px;
         display: flex;
@@ -167,18 +179,28 @@ body{
         border-radius: 15px;
     }
     .activeUsersContainer{
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        background: violet;
         overflow: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        margin-right: 10px;
+        
 
     }.activeUsers img{
-        width: 50px;
+        width: 40px;
         border-radius: 50px;
         padding: 5px;
         background-color: white;
         box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+    }.activeUsers{
+        display: inline-block;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        margin-left:5px ;
+        margin-right: 5px;
     }
 
         #userChatName{
@@ -229,9 +251,14 @@ body{
             margin: 5px 30px 5px 50%;
         }
         .chattext.enter{
-            background: rgb(184, 184, 184);
+            background: rgb(109, 248, 54);
             font-size: 15px;
+            margin: 10px;
 
+        }.chattext.leave{
+            background: rgb(248, 98, 98);
+            font-size: 15px;
+            margin: 10px;
         }
 
     .inputMsg{
