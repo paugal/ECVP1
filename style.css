@@ -7,7 +7,6 @@
     --color-three: #367B92;
     --color-four: #397E74;
     --color-five: #F2AB46;
-
 }
 
 html{
@@ -16,7 +15,6 @@ html{
     background: radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent), radial-gradient(circle, transparent 20%, #e5e5f7 20%, #e5e5f7 80%, transparent 80%, transparent) 25px 25px, linear-gradient(var(--main-color) 2px, transparent 2px) 0 -1px, linear-gradient(90deg, var(--main-color) 2px, #e5e5f7 2px) -1px 0;
     background-size: 50px 50px, 50px 50px, 25px 25px, 25px 25px;
 }
-
 body{
     font-family: 'Raleway', sans-serif;
 }

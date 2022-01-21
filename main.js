@@ -1,5 +1,7 @@
-
+   
 //VARIABLES GLOBALES
+
+
 var server = null;
 var location_server = "wss://ecv-etic.upf.edu/node/9000/ws";
 var room_name = "PauGGRoom/";
@@ -7,6 +9,7 @@ var selectedRoom = "Principal";
 var userId = '';
 var userName = '';
 var avatarImg = '';
+
 var usersOnline = {
 	type: 'activeUsers',
 	content:
@@ -16,6 +19,7 @@ var usersOnline = {
 		avatar: ''
 	}]
 };
+
 var msgs =[
 	{
 		type: 'text',
@@ -144,7 +148,7 @@ function userOffline(userData){
 	var index = usersOnline.content.findIndex(i => i.userid === userData.userid)
 	if (index > -1) {
 		usersOnline.content.splice(index, 1);
-		removeOfflineUsersDisplay(userData.userid);
+		document.getElementById(userData.userid).remove();
 	}
 
 	
@@ -243,10 +247,6 @@ function displayActiveUsers(){
 			div.appendChild(img);
 		}
 	}
-}
-
-function removeOfflineUsersDisplay(offlineId){
-	var offlineUser = document.getElementById(offlineId);
 }
 
 //EXTRAS
