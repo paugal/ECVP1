@@ -1,10 +1,7 @@
-   
 //VARIABLES GLOBALES
-
-
 var server = null;
 var location_server = "wss://ecv-etic.upf.edu/node/9000/ws";
-var room_name = "PauGGRoom/";
+var room_name = "_PauGGRoom2/";
 var selectedRoom = "Principal";
 var userId = '';
 var userName = '';
@@ -80,6 +77,7 @@ function setNameTitle()
 function enterChatMsg()
 {
 	var enterMsg = {type: 'enter', userid: userId, username: userName, avatar: avatarImg}
+	usersOnline.content[0] = {userid: userId, username: userName, avatar: avatarImg}
 	var msg_str = JSON.stringify( enterMsg );
 	server.sendMessage(msg_str);
 }

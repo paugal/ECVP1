@@ -101,8 +101,7 @@
                         <input  class='inputText' name='msg' type="text" id='inputMsg' 
                         placeholder="Type your message here..." onkeypress="ClientOnTyping('inputMsg', 'sendBtnChat')"/>
                 
-                        <i data-feather="smile" stroke= '#6d6d6e' ></i>
-                        <i id='sendBtnChat'data-feather="send"  onclick="pushMsg()"></i>
+                        <svg id='sendBtnChat'data-feather="send"  onclick="pushMsg()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#091F63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                     </div>
                 </div>
             </div>
@@ -110,7 +109,3 @@
         
     </body>
 </html>
-
-<script>
-feather.replace({class: 'foo bar', 'stroke': '#083fa5', 'width': 17}) 
-</script>
