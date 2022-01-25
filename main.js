@@ -17,39 +17,28 @@ var usersOnline = {
 	}]
 };
 
-var msgs =[
-	{
-		type: 'text',
-		username: 'paugal',
-		content: 'Holaa'
-	}
-];
-
 var msg = {
 	type: "history",
 	content: []
 };
 
-
-
 //INICIO DE CONECXION
 server = new SillyClient();
 
-server.on_ready = function( my_id )
-{
+server.on_ready = function( my_id ){
 	userId = my_id;
+	console.log('Tengo id: ', my_id);
 	usersOnline.content[0] = {userid: userId, username: userName, avatar: avatarImg}
+	enterChatMsg();
 }
 
-server.on_connect = function( server )
-{
+server.on_connect = function( server ){
 	setNameTitle();
-	enterChatMsg();
+	
 };
 
 
-function enterChat()
-{
+function enterChat(){
 	const validation = document.getElementById("useridInput");
 	if (validation.checkValidity()) {
 		var loginBox = document.getElementById("loginBox");
@@ -63,21 +52,18 @@ function enterChat()
 	}
 }
 
-function getUserName()
-{	
+function getUserName(){	
 	userName =  document.getElementById("useridInput").value;
 }
 
-function setNameTitle()
-{
+function setNameTitle(){
 	console.log(selectedRoom)
 	document.getElementById("nameTitle").innerHTML = selectedRoom;
 }
 
-function enterChatMsg()
-{
+function enterChatMsg(){
 	var enterMsg = {type: 'enter', userid: userId, username: userName, avatar: avatarImg}
-	usersOnline.content[0] = {userid: userId, username: userName, avatar: avatarImg}
+	displayActiveUsers();
 	var msg_str = JSON.stringify( enterMsg );
 	server.sendMessage(msg_str);
 }
@@ -92,11 +78,13 @@ function leaveChat(){
 	chatBox.style.display = 'none';
 }
 
+//Desconectamos al usuario si recarga o cierra la pagina.
+window.onbeforeunload = function(event){ leaveChat(); };
+
 //RECEPCION DE MENSAJES
 server.on_message = onMessageReceived;
 
-function onMessageReceived( authorId, data )
-{
+function onMessageReceived( authorId, data ){
 	var msgData = JSON.parse(data);
 	if(msgData.type == 'text'){
 		receiveTextMsg(msgData);
@@ -109,18 +97,14 @@ function onMessageReceived( authorId, data )
 	}else if((msgData.type == 'leave')){
 		userOffline(msgData);
 	}
-	
 }
-
-
 
 function receiveTextMsg(msgData){
 	displayMsg(msgData.username, msgData.content);
 	pushReceiveMsg(msgData.type, msgData.username, msgData.content )
 }
 
-function newUserChat(msgData, authorId)
-{
+function newUserChat(msgData, authorId){
 	//Creamos un mensaje diferente ara indicar que alguien se ha conectado
 	var div = document.createElement("div");
 	div.classList.add('chattext');
@@ -148,22 +132,14 @@ function userOffline(userData){
 		usersOnline.content.splice(index, 1);
 		document.getElementById(userData.userid).remove();
 	}
-
-	
-
-	//Añadimos el nuevo usuario a la lista de conectados
-	//usersOnline.content.push({userid:authorId, username: userData.username, avatar: userData.avatar})
-	//displayActiveUsers();
 }
 
-function pushReceiveMsg(msgType, msgUser, msgContent)
-{
+function pushReceiveMsg(msgType, msgUser, msgContent){
 	msg.content.push({type:msgType, username: msgUser, content: msgContent});
 }
 
 //ENVIO DE MENSAJES
-function sendHistory(authorId)
-{
+function sendHistory(authorId){
 	//Enviamos todos los mensajes anteriores
 	var msg_str = JSON.stringify(msg);
 	
@@ -177,11 +153,9 @@ function sendUsersOnline(authorId){
 	server.sendMessage(msg_str, [authorId]);
 }
 
-function pushMsg()
-{
+function pushMsg(){
 	var msgtext = document.getElementById("inputMsg").value;
 	var msgAux = {type:'text', username: userName, content: msgtext};
-	msgs.push(msgAux);
 	msg.content.push(msgAux);
 	document.getElementById("inputMsg").value = '';
 
@@ -211,10 +185,12 @@ function loadActiveUsers(usersData)
 	if(usersOnline.content.length == 1){
 		var actives = usersData.content;
 		for(let index of actives){
+			console.log('loadActiveUsers')
 			console.log(usersData)
 			usersOnline.content.push(index)
 		}
 	}
+	displayActiveUsers();
 }
 
 //DISPLAY
@@ -234,15 +210,17 @@ function displayMsg(userNameMsg, msgtext)
 
 function displayActiveUsers(){
 	for(let index of usersOnline.content){
-		var div = document.createElement("div");
-		div.id = index.userid;
-		if(document.getElementById(index.username) == null){
+		console.log(index);
+		if(document.getElementById(index.userid) == null){
+			console.log(index);
+			var div = document.createElement("div");
+			div.id = index.userid;
 			div.classList.add('activeUsers');
 			div.textContent = index.username;
-			document.getElementById("activeUsers").appendChild(div);
 			var img = document.createElement('img'); 
 			img.src = index.avatar;
 			div.appendChild(img);
+			document.getElementById("activeUsers").appendChild(div);
 		}
 	}
 }
@@ -266,3 +244,5 @@ function buttonWithEnter(event, elementBtn) {
 	  document.getElementById(elementBtn).onclick();
 	}
 }
+
+
